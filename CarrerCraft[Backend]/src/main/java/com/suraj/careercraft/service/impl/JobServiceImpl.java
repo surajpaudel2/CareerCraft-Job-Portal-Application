@@ -92,16 +92,81 @@ public class JobServiceImpl implements JobService {
     @Override
     public Page<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto) {
         Pageable pageable = PageRequest.of(searchRequestDto.getPage(), searchRequestDto.getSize());
-        if(searchRequestDto.getTitle() != null && searchRequestDto.getLocation() != null) {
-            return jobSearchRepository.fuzzySearchByFieldsLocationAndStatus(searchRequestDto.getTitle(),
-                    searchRequestDto.getLocation(), JobStatus.ACTIVE, pageable);
+
+        // Title + Location + Salary
+        if (searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty() &&
+                searchRequestDto.getLocation() != null && !searchRequestDto.getLocation().isEmpty() &&
+                searchRequestDto.getMinSalary() != null && searchRequestDto.getMaxSalary() != null) {
+            if (searchRequestDto.getMinSalary() > searchRequestDto.getMaxSalary()) {
+                throw new IllegalArgumentException("Min salary cannot be greater than max salary");
+            }
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByTitleFieldsLocationAndSalary(
+                    searchRequestDto.getTitle(), searchRequestDto.getLocation(),
+                    searchRequestDto.getMinSalary(), searchRequestDto.getMaxSalary(), pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
         }
 
-        if(searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty()) {
-            return jobSearchRepository.fuzzySearchByFieldsAndStatus(searchRequestDto.getTitle(), JobStatus.ACTIVE, pageable);
+        // Title + Location
+        if (searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty() &&
+                searchRequestDto.getLocation() != null && !searchRequestDto.getLocation().isEmpty()) {
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByFieldsLocationAndStatus(
+                    searchRequestDto.getTitle(), searchRequestDto.getLocation(), JobStatus.ACTIVE, pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
         }
-        return jobSearchRepository.findAll(pageable);
+
+        // Title + Salary
+        if (searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty() &&
+                searchRequestDto.getMinSalary() != null && searchRequestDto.getMaxSalary() != null) {
+            if (searchRequestDto.getMinSalary() > searchRequestDto.getMaxSalary()) {
+                throw new IllegalArgumentException("Min salary cannot be greater than max salary");
+            }
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByTitleFieldsAndSalary(
+                    searchRequestDto.getTitle(), searchRequestDto.getMinSalary(),
+                    searchRequestDto.getMaxSalary(), pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
+        }
+
+        // Location + Salary
+        if (searchRequestDto.getLocation() != null && !searchRequestDto.getLocation().isEmpty() &&
+                searchRequestDto.getMinSalary() != null && searchRequestDto.getMaxSalary() != null) {
+            if (searchRequestDto.getMinSalary() > searchRequestDto.getMaxSalary()) {
+                throw new IllegalArgumentException("Min salary cannot be greater than max salary");
+            }
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByLocationAndSalary(
+                    searchRequestDto.getLocation(), searchRequestDto.getMinSalary(),
+                    searchRequestDto.getMaxSalary(), pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
+        }
+
+        // Title Only
+        if (searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty()) {
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByFieldsAndStatus(
+                    searchRequestDto.getTitle(), JobStatus.ACTIVE, pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
+        }
+
+        // Location Only
+        if (searchRequestDto.getLocation() != null && !searchRequestDto.getLocation().isEmpty()) {
+            Page<JobDocument> result = jobSearchRepository.fuzzySearchByLocation(
+                    searchRequestDto.getLocation(), pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
+        }
+
+        // Salary Only
+        if (searchRequestDto.getMinSalary() != null && searchRequestDto.getMaxSalary() != null) {
+            if (searchRequestDto.getMinSalary() > searchRequestDto.getMaxSalary()) {
+                throw new IllegalArgumentException("Min salary cannot be greater than max salary");
+            }
+            Page<JobDocument> result = jobSearchRepository.findBySalaryBetween(
+                    searchRequestDto.getMinSalary(), searchRequestDto.getMaxSalary(), pageable);
+            return result.isEmpty() ? Page.empty(pageable) : result;
+        }
+
+        // Default case - Return all jobs (pagination applied)
+        Page<JobDocument> result = jobSearchRepository.findAll(pageable);
+        return result.isEmpty() ? Page.empty(pageable) : result;
     }
+
 
     @Override
     public Job convertDto(JobRequestDto jobRequestDto) {
