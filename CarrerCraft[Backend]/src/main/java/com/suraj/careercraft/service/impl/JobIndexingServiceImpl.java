@@ -3,7 +3,7 @@ package com.suraj.careercraft.service.impl;
 import com.suraj.careercraft.model.Job;
 import com.suraj.careercraft.model.JobStatus;
 import com.suraj.careercraft.model.elasticsearch.JobDocument;
-import com.suraj.careercraft.repository.jobs.JobSearchRepository;
+import com.suraj.careercraft.repository.JobSearchRepository;
 import com.suraj.careercraft.service.JobIndexingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

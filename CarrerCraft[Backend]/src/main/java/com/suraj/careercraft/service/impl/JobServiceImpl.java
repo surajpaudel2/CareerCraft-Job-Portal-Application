@@ -10,12 +10,15 @@ import com.suraj.careercraft.model.EmployerProfile;
 import com.suraj.careercraft.model.Job;
 import com.suraj.careercraft.model.JobStatus;
 import com.suraj.careercraft.model.elasticsearch.JobDocument;
-import com.suraj.careercraft.repository.jobs.JobRepository;
-import com.suraj.careercraft.repository.jobs.JobSearchCustomRepository;
+import com.suraj.careercraft.repository.JobRepository;
+import com.suraj.careercraft.repository.JobSearchRepository;
 import com.suraj.careercraft.service.EmployerProfileService;
 import com.suraj.careercraft.service.JobService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +29,14 @@ public class JobServiceImpl implements JobService {
     private final JobRepository jobRepository;
     private final EmployerProfileService employerProfileService;
     private final JobEventPublisher jobEventPublisher;
-    private final JobSearchCustomRepository jobSearchCustomRepository;
+    private final JobSearchRepository jobSearchRepository;
 
-    public JobServiceImpl(JobRepository jobRepository, EmployerProfileService employerProfileService, JobEventPublisher jobEventPublisher, JobSearchCustomRepository jobSearchCustomRepository) {
+    public JobServiceImpl(JobRepository jobRepository, EmployerProfileService employerProfileService,
+                          JobEventPublisher jobEventPublisher, JobSearchRepository jobSearchRepository) {
         this.jobRepository = jobRepository;
         this.employerProfileService = employerProfileService;
         this.jobEventPublisher = jobEventPublisher;
-        this.jobSearchCustomRepository = jobSearchCustomRepository;
+        this.jobSearchRepository = jobSearchRepository;
     }
 
     public List<Job> findJobsByEmployerId(Long employerId) {
@@ -86,8 +90,17 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto) {
-        return jobSearchCustomRepository.searchJobsDynamically(searchRequestDto);
+    public Page<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto) {
+        Pageable pageable = PageRequest.of(searchRequestDto.getPage(), searchRequestDto.getSize());
+        if(searchRequestDto.getTitle() != null && searchRequestDto.getLocation() != null) {
+            return jobSearchRepository.fuzzySearchByFieldsLocationAndStatus(searchRequestDto.getTitle(),
+                    searchRequestDto.getLocation(), JobStatus.ACTIVE, pageable);
+        }
+
+        if(searchRequestDto.getTitle() != null && !searchRequestDto.getTitle().isEmpty()) {
+            return jobSearchRepository.fuzzySearchByFieldsAndStatus(searchRequestDto.getTitle(), JobStatus.ACTIVE, pageable);
+        }
+        return jobSearchRepository.findAll(pageable);
     }
 
     @Override

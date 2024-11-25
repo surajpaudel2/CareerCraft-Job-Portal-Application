@@ -94,7 +94,7 @@ public class SecurityConfig {
     private void configureAuthorization(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/", "/oauth2/**", "/home", "/auth/**").permitAll()
+                        .requestMatchers("/", "/oauth2/**", "/home", "/auth/**", "/job/search").permitAll()
                         .requestMatchers("/employer/register").access(employerRegisterAuthorizationManager())
                         .requestMatchers("/employer/**", "/job/create").hasAuthority("ROLE_EMPLOYER")
                         .anyRequest().authenticated()

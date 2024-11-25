@@ -32,7 +32,7 @@ export default function LandingPage() {
   const searchJobs = async () => {
     // Define the search request DTO as an object
     const searchRequestDto = {
-      title: "Java", // Title filter
+      title: "software", // Title filter
       location: null, // Location filter
       minSalary: null, // Minimum salary
       maxSalary: null, // Maximum salary
@@ -43,7 +43,7 @@ export default function LandingPage() {
 
     try {
       // Send request body in a POST request
-      const response = await apiBaseUrl.post("/auth/search", searchRequestDto);
+      const response = await apiBaseUrl.post("/job/search", searchRequestDto);
 
       // Log the response to verify the data
       console.log("Job Search Response:", response.data);
@@ -58,7 +58,7 @@ export default function LandingPage() {
 
   searchJobs();
 
-  searchJobs();
+  // searchJobs();
 
   function handleOnSearch() {}
 

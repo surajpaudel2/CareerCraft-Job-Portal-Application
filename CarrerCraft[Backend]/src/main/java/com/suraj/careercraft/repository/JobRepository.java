@@ -1,4 +1,4 @@
-package com.suraj.careercraft.repository.jobs;
+package com.suraj.careercraft.repository;
 
 import com.suraj.careercraft.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;

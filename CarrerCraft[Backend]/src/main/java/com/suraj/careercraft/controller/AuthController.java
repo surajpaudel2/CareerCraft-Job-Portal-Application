@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -182,23 +183,6 @@ public class AuthController {
 
         String newAccessToken = jwtTokenUtil.generateTokenFromEmail(email);
         return ResponseEntity.ok(new JwtResponseDto(newAccessToken, refreshToken)); // Return the new tokens
-    }
-
-
-//    Remove at last just for testing
-
-
-    @PostMapping("/search")
-    public ResponseEntity<?> searchJob(@RequestBody JobSearchRequestDto searchRequestDto) {
-        System.out.println("hey");
-//        System.out.println();
-        List<JobDocument> list = jobServiceImpl.searchJobs(searchRequestDto);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-    @PostMapping("/hey")
-    public void sayHi() {
-        System.out.println("Say Hi");
     }
 }
 

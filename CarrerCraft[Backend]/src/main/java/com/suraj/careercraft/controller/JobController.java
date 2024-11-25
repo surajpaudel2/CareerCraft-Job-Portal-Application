@@ -10,6 +10,7 @@ import com.suraj.careercraft.model.elasticsearch.JobDocument;
 import com.suraj.careercraft.service.BeanValidationService;
 import com.suraj.careercraft.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -97,9 +98,10 @@ public class JobController {
         return new ResponseEntity<>(jobResponseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchJob(@RequestParam JobSearchRequestDto searchRequestDto) {
-        List<JobDocument> list = jobService.searchJobs(searchRequestDto);
+
+    @PostMapping("/search")
+    public ResponseEntity<?> searchJob(@RequestBody JobSearchRequestDto searchRequestDto) {
+        Page<JobDocument> list = jobService.searchJobs(searchRequestDto);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
