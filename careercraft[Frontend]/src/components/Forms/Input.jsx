@@ -1,9 +1,9 @@
 export default function Input({
-  type,
+  type = "text",
   name,
   id,
   placeholder,
-  value,
+  value = "",
   handleOnChange,
   handleOnBlur,
   options = [],

@@ -20,6 +20,8 @@ import PrivateRoute from "./components/Private Route/PrivateRoute";
 import AuthProvider from "./contexts/AuthContext";
 import { EmployerProvider } from "./contexts/EmployerContext";
 import LandingPage from "./components/LandingPage/LandingPage";
+import WhyUsSection from "./components/LandingPage/WhyUsSection";
+import JobListWithDetails from "./components/dummy/JobListWithDetails";
 
 const clientId =
   "516077764705-ueuep86aim4a2f20595f1p1jqc9pt689.apps.googleusercontent.com"; // Client Id for the google login.
@@ -60,7 +62,10 @@ function MainContent() {
       {shouldRenderTopNav && <TopNav />}
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />}>
+          <Route index element={<WhyUsSection />} />
+          <Route path="/jobs" element={<JobListWithDetails />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />

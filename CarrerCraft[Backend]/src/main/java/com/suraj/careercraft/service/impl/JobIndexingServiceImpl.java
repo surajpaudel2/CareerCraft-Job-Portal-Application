@@ -1,5 +1,6 @@
 package com.suraj.careercraft.service.impl;
 
+import com.suraj.careercraft.model.EmployerProfile;
 import com.suraj.careercraft.model.Job;
 import com.suraj.careercraft.model.JobStatus;
 import com.suraj.careercraft.model.elasticsearch.JobDocument;
@@ -46,8 +47,11 @@ public class JobIndexingServiceImpl implements JobIndexingService {
      * @return the JobDocument.
      */
     private JobDocument convertToJobDocument(Job job) {
+        EmployerProfile employerProfile = job.getEmployer();
+
         return JobDocument.builder()
                 .id(job.getId().toString())
+                .employerId(employerProfile.getId().toString())
                 .title(job.getTitle())
                 .titleKeyword(job.getTitle()) // Add exact match field for filtering or sorting
                 .description(job.getDescription())
@@ -57,6 +61,9 @@ public class JobIndexingServiceImpl implements JobIndexingService {
                 .salary(job.getSalary() != null ? job.getSalary().doubleValue() : 0.0)
                 .status(job.getStatus() != null ? job.getStatus().name() : JobStatus.ACTIVE.name())
                 .postedAt(job.getPostedAt())
+                .companyName(employerProfile.getCompanyName())
+                .industry(employerProfile.getIndustry())
+                .logoUrl(employerProfile.getLogoUrl())
                 .build();
     }
 }
