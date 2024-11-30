@@ -1,10 +1,9 @@
 package com.suraj.careercraft.service.impl;
 
 import com.suraj.careercraft.dto.request.ForgotPasswordRequestDto;
-import com.suraj.careercraft.dto.request.ForgotPasswordRequestDto;
 import com.suraj.careercraft.dto.request.OtpVerificationRequestDto;
 import com.suraj.careercraft.dto.response.RegisterResponseDto;
-import com.suraj.careercraft.model.OtpPurpose;
+import com.suraj.careercraft.model.enums.OtpPurpose;
 import com.suraj.careercraft.model.User;
 import com.suraj.careercraft.service.EmailService;
 import com.suraj.careercraft.service.ForgotPasswordService;

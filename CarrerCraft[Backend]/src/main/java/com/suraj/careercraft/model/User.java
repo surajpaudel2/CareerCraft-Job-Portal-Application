@@ -1,6 +1,8 @@
 package com.suraj.careercraft.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.suraj.careercraft.model.enums.AccountStatus;
+import com.suraj.careercraft.model.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

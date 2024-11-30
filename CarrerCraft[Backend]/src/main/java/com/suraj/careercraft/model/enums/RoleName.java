@@ -1,4 +1,4 @@
-package com.suraj.careercraft.model;
+package com.suraj.careercraft.model.enums;
 
 public enum RoleName {
     ROLE_ADMIN,

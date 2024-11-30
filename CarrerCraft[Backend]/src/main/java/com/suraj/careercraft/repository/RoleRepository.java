@@ -1,7 +1,7 @@
 package com.suraj.careercraft.repository;
 
 import com.suraj.careercraft.model.Role;
-import com.suraj.careercraft.model.RoleName;
+import com.suraj.careercraft.model.enums.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

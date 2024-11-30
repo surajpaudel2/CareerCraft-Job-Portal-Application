@@ -2,13 +2,12 @@ package com.suraj.careercraft.service.impl;
 
 import com.suraj.careercraft.exceptions.UserNotFoundException;
 import com.suraj.careercraft.model.Otp;
-import com.suraj.careercraft.model.OtpPurpose;
+import com.suraj.careercraft.model.enums.OtpPurpose;
 import com.suraj.careercraft.model.User;
 import com.suraj.careercraft.repository.OtpRepository;
 import com.suraj.careercraft.repository.UserRepository;
 import com.suraj.careercraft.service.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

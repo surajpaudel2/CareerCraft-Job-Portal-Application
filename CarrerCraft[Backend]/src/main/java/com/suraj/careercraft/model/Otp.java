@@ -1,5 +1,6 @@
 package com.suraj.careercraft.model;
 
+import com.suraj.careercraft.model.enums.OtpPurpose;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

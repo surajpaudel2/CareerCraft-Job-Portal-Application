@@ -11,6 +11,8 @@ export default function LandingPage() {
     minSalary: null,
     maxSalary: null,
     postedAfter: null,
+    page: 0,
+    size: 10,
   });
 
   const navigate = useNavigate();

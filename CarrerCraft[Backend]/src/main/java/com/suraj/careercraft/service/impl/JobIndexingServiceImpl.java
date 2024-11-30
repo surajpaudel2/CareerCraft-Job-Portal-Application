@@ -2,7 +2,7 @@ package com.suraj.careercraft.service.impl;
 
 import com.suraj.careercraft.model.EmployerProfile;
 import com.suraj.careercraft.model.Job;
-import com.suraj.careercraft.model.JobStatus;
+import com.suraj.careercraft.model.enums.JobStatus;
 import com.suraj.careercraft.model.elasticsearch.JobDocument;
 import com.suraj.careercraft.repository.JobSearchRepository;
 import com.suraj.careercraft.service.JobIndexingService;

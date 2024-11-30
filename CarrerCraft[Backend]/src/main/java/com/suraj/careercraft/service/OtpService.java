@@ -1,6 +1,6 @@
 package com.suraj.careercraft.service;
 
-import com.suraj.careercraft.model.OtpPurpose;
+import com.suraj.careercraft.model.enums.OtpPurpose;
 
 public interface OtpService {
     public String generateAndStoreOtp(String email, OtpPurpose purpose);

@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableSpringDataWebSupport
 public class CareerCraftApplication {
 
     public static void main(String[] args) {

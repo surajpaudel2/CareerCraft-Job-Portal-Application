@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class JobSearchRequestDto {
     private String title;
     private String location;
+    private String workType;
     private Double minSalary;
     private Double maxSalary;
     private LocalDateTime postedAfter;

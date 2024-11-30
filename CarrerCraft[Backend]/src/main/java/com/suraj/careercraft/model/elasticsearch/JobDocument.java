@@ -1,6 +1,9 @@
 package com.suraj.careercraft.model.elasticsearch;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.suraj.careercraft.model.enums.JobType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +13,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JobDocument {
 
     @Id
@@ -45,8 +47,12 @@ public class JobDocument {
     @Field(type = FieldType.Keyword)
     private String locationKeyword; // Exact match for filtering or aggregations
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Text)
     private List<String> requirements; // Exact match for individual requirements
+
+    @JsonIgnore
+    @Field(type = FieldType.Keyword)
+    private List<String> requirementsKeyword;
 
     @Field(type = FieldType.Double)
     private Double salary; // Numeric field for range queries
@@ -55,7 +61,8 @@ public class JobDocument {
     private String status; // Enum-like field (ACTIVE, PENDING, CLOSED) for exact match
 
     @Field(type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSS'Z'")
-    private LocalDateTime postedAt; // Date field for sorting or range queries
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime postedAt;
 
     @Field(type = FieldType.Text, analyzer = "standard")
     private String companyName; // Employer's company name
@@ -65,4 +72,7 @@ public class JobDocument {
 
     @Field(type = FieldType.Text)
     private String logoUrl; // Employer's logo URL
+
+    @Field(type = FieldType.Keyword)
+    private JobType jobType; // Added JobType enum for job type (e.g., FULL_TIME, PART_TIME, etc.)
 }

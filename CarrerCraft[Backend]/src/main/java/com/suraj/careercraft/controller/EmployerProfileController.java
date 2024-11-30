@@ -6,7 +6,7 @@ import com.suraj.careercraft.dto.response.RegisterResponseDto;
 import com.suraj.careercraft.exceptions.UserPersistenceException;
 import com.suraj.careercraft.model.EmployerProfile;
 import com.suraj.careercraft.model.Role;
-import com.suraj.careercraft.model.RoleName;
+import com.suraj.careercraft.model.enums.RoleName;
 import com.suraj.careercraft.model.User;
 import com.suraj.careercraft.repository.RoleRepository;
 import com.suraj.careercraft.repository.UserRepository;
@@ -24,9 +24,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/employer")

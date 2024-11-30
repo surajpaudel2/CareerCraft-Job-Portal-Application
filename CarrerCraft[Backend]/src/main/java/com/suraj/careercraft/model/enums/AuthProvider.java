@@ -1,4 +1,4 @@
-package com.suraj.careercraft.model;
+package com.suraj.careercraft.model.enums;
 
 public enum AuthProvider {
     LOCAL,    // For form-based login (username/password)

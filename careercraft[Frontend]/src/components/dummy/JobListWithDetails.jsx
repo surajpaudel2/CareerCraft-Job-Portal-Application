@@ -13,6 +13,7 @@ export default function JobListWithDetails() {
         const response = await apiBaseUrl.post("/job/search", filters);
         const { content: jobs } = response.data;
         setAvailableJobs(jobs);
+        console.log("Jobs : are");
         console.log(jobs); // Log the actual data fetched
       } catch (error) {
         console.error(error);

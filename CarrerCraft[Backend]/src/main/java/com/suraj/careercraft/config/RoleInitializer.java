@@ -1,7 +1,7 @@
 package com.suraj.careercraft.config;
 
 import com.suraj.careercraft.model.Role;
-import com.suraj.careercraft.model.RoleName;
+import com.suraj.careercraft.model.enums.RoleName;
 import com.suraj.careercraft.repository.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

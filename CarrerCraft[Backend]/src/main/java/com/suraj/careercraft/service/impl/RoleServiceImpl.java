@@ -1,7 +1,7 @@
 package com.suraj.careercraft.service.impl;
 
 import com.suraj.careercraft.model.Role;
-import com.suraj.careercraft.model.RoleName;
+import com.suraj.careercraft.model.enums.RoleName;
 import com.suraj.careercraft.repository.RoleRepository;
 import com.suraj.careercraft.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

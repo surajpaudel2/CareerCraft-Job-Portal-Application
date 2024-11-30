@@ -1,5 +1,6 @@
 package com.suraj.careercraft.model;
 
+import com.suraj.careercraft.model.enums.AdminLevel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.suraj.careercraft.repository;
 
 import com.suraj.careercraft.model.Otp;
-import com.suraj.careercraft.model.OtpPurpose;
+import com.suraj.careercraft.model.enums.OtpPurpose;
 import com.suraj.careercraft.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
