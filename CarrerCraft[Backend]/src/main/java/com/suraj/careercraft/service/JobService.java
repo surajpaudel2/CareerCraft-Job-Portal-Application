@@ -16,7 +16,7 @@ public interface JobService {
 
     void deleteJob(Long jobId);
 
-    Page<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto);
+    List<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto);
 
     Job convertDto(JobRequestDto jobRequestDto);
 }

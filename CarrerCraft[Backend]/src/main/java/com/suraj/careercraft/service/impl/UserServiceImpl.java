@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -132,8 +133,8 @@ public class UserServiceImpl implements UserService {
         String email = user.getEmail();
         String accountStatus = user.getAccountStatus().toString();
         Set<Role> roles = user.getRoles();
-        Timestamp updatedAt = user.getUpdatedAt();
-        Timestamp createdAt = user.getCreatedAt();
+        LocalDateTime updatedAt = user.getUpdatedAt();
+        LocalDateTime createdAt = user.getCreatedAt();
 
         return new UserResponseDto(id, username, email, fullName, accountStatus, createdAt, updatedAt);
     }

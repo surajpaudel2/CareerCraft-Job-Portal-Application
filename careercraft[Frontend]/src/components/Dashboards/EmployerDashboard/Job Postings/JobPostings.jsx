@@ -21,7 +21,7 @@ export default function JobPostings() {
 
   return (
     <div className="p-6 bg-white shadow-lg rounded-lg">
-      {successMessage && (
+      {successMessage && !activeJobForm && (
         <p className="text-center mb-8 text-teal-400 text-2xl font-semibold">
           {successMessage}
         </p>
@@ -54,7 +54,10 @@ export default function JobPostings() {
         />
       ) : (
         <>
-          <JobPostingsTable setActiveJobForm={setActiveJobForm} />
+          <JobPostingsTable
+            setActiveJobForm={setActiveJobForm}
+            setSuccessMessage={setSuccessMessage}
+          />
         </>
       )}
     </div>

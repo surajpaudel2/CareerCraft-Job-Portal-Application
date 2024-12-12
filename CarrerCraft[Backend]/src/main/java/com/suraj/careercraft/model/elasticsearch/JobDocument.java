@@ -25,54 +25,53 @@ import java.util.List;
 public class JobDocument {
 
     @Id
-    private String id; // Primary Key
+    private String id;
 
     @Field(type = FieldType.Keyword)
     private String employerId;
 
     @Field(type = FieldType.Text, analyzer = "standard")
-    private String title; // Full-text search field
+    private String title;
 
     @JsonIgnore
     @Field(type = FieldType.Keyword)
-    private String titleKeyword; // Exact match for filtering, sorting, etc.
+    private String titleKeyword;
 
     @Field(type = FieldType.Text, analyzer = "standard")
-    private String description; // Full-text search
+    private String description;
 
     @Field(type = FieldType.Text, analyzer = "standard")
-    private String location; // Full-text search
+    private String location;
 
     @JsonIgnore
     @Field(type = FieldType.Keyword)
-    private String locationKeyword; // Exact match for filtering or aggregations
+    private String locationKeyword;
 
     @Field(type = FieldType.Text)
-    private List<String> requirements; // Exact match for individual requirements
+    private List<String> requirements;
 
     @JsonIgnore
     @Field(type = FieldType.Keyword)
     private List<String> requirementsKeyword;
 
     @Field(type = FieldType.Double)
-    private Double salary; // Numeric field for range queries
+    private Double salary;
 
     @Field(type = FieldType.Text)
-    private String status; // Enum-like field (ACTIVE, PENDING, CLOSED) for exact match
+    private String status;
 
-    @Field(type = FieldType.Date, format = {}, pattern = "uuuu-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime postedAt;
 
     @Field(type = FieldType.Text, analyzer = "standard")
-    private String companyName; // Employer's company name
+    private String companyName;
 
     @Field(type = FieldType.Text, analyzer = "standard")
-    private String industry; // Employer's industry
+    private String industry;
 
     @Field(type = FieldType.Text)
-    private String logoUrl; // Employer's logo URL
+    private String logoUrl;
 
     @Field(type = FieldType.Keyword)
-    private JobType jobType; // Added JobType enum for job type (e.g., FULL_TIME, PART_TIME, etc.)
+    private List<JobType> jobTypes; // Store as a list of strings in Elasticsearch
 }

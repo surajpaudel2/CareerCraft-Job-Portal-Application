@@ -3,12 +3,13 @@ package com.suraj.careercraft.dto.request;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class JobSearchRequestDto {
     private String title;
     private String location;
-    private String workType;
+    private List<String> workType;
     private Double minSalary;
     private Double maxSalary;
     private LocalDateTime postedAfter;

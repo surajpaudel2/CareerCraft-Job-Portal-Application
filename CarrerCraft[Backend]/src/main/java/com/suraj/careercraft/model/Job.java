@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.suraj.careercraft.model.enums.JobStatus;
 import com.suraj.careercraft.model.enums.JobType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -37,9 +34,11 @@ public class Job {
 
     private String location;
 
-    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = JobType.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "job_types", joinColumns = @JoinColumn(name = "job_id"))
     @Column(name = "job_type")
-    private JobType jobType; // Added JobType enum field
+    @Enumerated(EnumType.STRING) // Store enum as String (e.g., FULL_TIME, PART_TIME)
+    private List<JobType> jobType;
 
     @ElementCollection
     @CollectionTable(name = "job_requirements", joinColumns = @JoinColumn(name = "job_id"))
@@ -53,12 +52,13 @@ public class Job {
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt; // Changed to LocalDateTime for consistency
+    private LocalDateTime updatedAt;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private JobStatus status;
 
+    @ToString.Exclude
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "employer_id", referencedColumnName = "id")

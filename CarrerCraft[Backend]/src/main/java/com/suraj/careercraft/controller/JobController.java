@@ -82,6 +82,7 @@ public class JobController {
             String messages = beanValidationService.getValidationErrors(bindingResult);
             return ResponseEntity.badRequest().body(messages);
         }
+
         Job job = jobService.convertDto(jobRequestDto);
         jobService.createJob(job);
 
@@ -101,7 +102,7 @@ public class JobController {
 
     @PostMapping("/search")
     public ResponseEntity<?> searchJob(@RequestBody JobSearchRequestDto searchRequestDto) {
-        Page<JobDocument> list = jobService.searchJobs(searchRequestDto);
+        List<JobDocument> list = jobService.searchJobs(searchRequestDto);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

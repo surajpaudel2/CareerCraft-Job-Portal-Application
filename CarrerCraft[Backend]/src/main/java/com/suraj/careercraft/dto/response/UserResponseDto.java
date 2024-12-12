@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +20,6 @@ public class UserResponseDto {
     private String fullName;
     private String accountStatus;
     private final Set<Role> roles = new HashSet<>();
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

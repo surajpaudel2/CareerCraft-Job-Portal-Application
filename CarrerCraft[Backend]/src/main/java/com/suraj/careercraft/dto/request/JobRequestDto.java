@@ -27,6 +27,8 @@ public class JobRequestDto {
 
     private List<String> requirements;
 
+    private List<String> jobType;
+
     @NotNull(message = "Job status is required")
     private String status;
 

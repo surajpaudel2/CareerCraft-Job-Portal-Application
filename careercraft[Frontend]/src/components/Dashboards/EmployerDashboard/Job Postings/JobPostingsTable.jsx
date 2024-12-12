@@ -4,14 +4,15 @@ import JobPostingRow from "./JobPostingsRow";
 import { useNavigate } from "react-router-dom";
 import apiBaseUrl from "../../../../api/apiBaseUrl";
 
-export default function JobPostingsTable({ setActiveJobForm }) {
+export default function JobPostingsTable({
+  setActiveJobForm,
+  setSuccessMessage,
+}) {
   const { companyDetails, fetchCompanyDetails } = useEmployer();
   const { postedJobs: jobs } = companyDetails;
   const [jobPostings, setJobPostings] = useState(jobs);
 
   const navigate = useNavigate();
-
-  useEffect(() => {}, [companyDetails, fetchCompanyDetails]);
 
   async function deleteJobPosting(id) {
     const jwtToken = localStorage.getItem("jwtToken");
@@ -26,8 +27,11 @@ export default function JobPostingsTable({ setActiveJobForm }) {
 
       const { success } = response.data;
       if (success) {
-        console.log("hello");
         await fetchCompanyDetails();
+        setJobPostings((prevJobPostings) =>
+          prevJobPostings.filter((job) => job.id !== id)
+        );
+        setSuccessMessage("Job deleted successfully!");
       }
 
       // Fetch updated company details
@@ -46,6 +50,7 @@ export default function JobPostingsTable({ setActiveJobForm }) {
     const jobToEdit = jobs.find((job) => job.id === id);
 
     setActiveJobForm(true);
+    console.log(jobToEdit);
     navigate("/employer/job-postings", { state: { job: jobToEdit } });
   }
 

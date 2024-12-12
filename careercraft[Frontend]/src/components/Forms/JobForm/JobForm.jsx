@@ -19,8 +19,9 @@ const initialJobState = {
   description: { value: "", error: "" },
   salary: { value: "", error: "" },
   location: { value: "", error: "" },
-  requirements: { value: [""], error: "" },
+  requirements: { value: [], error: "" },
   status: { value: "Active", error: "" },
+  jobType: { value: [], error: "" }, // Add initial state for jobTypes
 };
 
 // Action types for managing job form state transitions
@@ -34,12 +35,35 @@ const JOB_ACTION_TYPES = {
 };
 
 // Static configurations for job form fields to support rendering dynamically
+// Static configurations for job form fields to support rendering dynamically
+const jobTypes = [
+  "Full Time",
+  "Part Time",
+  "Temporary",
+  "Contract",
+  "Internship",
+  "Freelance",
+  "Seasonal",
+  "Volunteer",
+  "Per Diem",
+  "On Call",
+  "Remote",
+  "Hybrid",
+  "Gig Work",
+  "Commission Based",
+  "Apprenticeship",
+  "Shift Work",
+];
+
+const jobOptions = ["Active", "Pending", "Closed"];
+
 const jobFormFields = [
   {
     label: "Job Title",
     type: "text",
     name: "jobTitle",
     placeholder: "Software Engineer",
+    value: "",
   },
   {
     label: "Description",
@@ -47,7 +71,12 @@ const jobFormFields = [
     name: "description",
     placeholder: "Job description",
   },
-  { label: "Salary", type: "number", name: "salary", placeholder: "50000" },
+  {
+    label: "Salary",
+    type: "number",
+    name: "salary",
+    placeholder: "50000",
+  },
   {
     label: "Location",
     type: "text",
@@ -58,7 +87,13 @@ const jobFormFields = [
     label: "Status",
     type: "select",
     name: "status",
-    options: ["Active", "Pending", "Closed"],
+    options: jobOptions,
+  },
+  {
+    label: "Job Types",
+    type: "checkbox",
+    name: "jobType",
+    options: jobTypes, // Dynamically add the job types
   },
 ];
 
@@ -74,6 +109,7 @@ const jobFormFields = [
 function jobReducer(state, action) {
   switch (action.type) {
     case JOB_ACTION_TYPES.CHANGE:
+      console.log(state, " From the reducer function");
       return {
         ...state,
         [action.field]: { value: action.value, error: "" },
@@ -201,15 +237,24 @@ export default function JobForm({ setActiveJobForm, setSuccessMessage }) {
     if (jobToEdit) {
       for (const key in jobToEdit) {
         if (key in initialJobState) {
+          let value;
+
+          // Handle specific cases for fields
+          if (key === "requirements") {
+            value = jobToEdit[key] || [];
+          } else if (key === "status") {
+            value = jobToEdit[key] || "Active"; // Default to "Active" if undefined
+          } else if (key === "jobType") {
+            value = Array.isArray(jobToEdit[key]) ? jobToEdit[key] : [];
+          } else {
+            value = jobToEdit[key] || ""; // Default to an empty string for other fields
+          }
+
+          // Dispatch the field update
           dispatch({
             type: JOB_ACTION_TYPES.CHANGE,
             field: key,
-            value:
-              key === "requirements"
-                ? jobToEdit[key]
-                : key === "status"
-                ? jobToEdit[key] || "Active" // Default to "Active" if undefined
-                : jobToEdit[key] || "",
+            value: value,
           });
         }
       }
@@ -217,6 +262,8 @@ export default function JobForm({ setActiveJobForm, setSuccessMessage }) {
       dispatch({ type: JOB_ACTION_TYPES.RESET });
     }
   }, [jobToEdit]);
+
+  console.log(state);
 
   const [errorMessage, setErrorMessage] = useState("");
   const { user } = useAuth();
@@ -271,6 +318,7 @@ export default function JobForm({ setActiveJobForm, setSuccessMessage }) {
       salary: parseFloat(state.salary.value),
       location: state.location.value,
       requirements: state.requirements.value.filter(Boolean), // Exclude empty requirements
+      jobType: state.jobType.value,
       status: state.status.value,
       employerEmail: employerEmail,
     };
@@ -340,9 +388,10 @@ export default function JobForm({ setActiveJobForm, setSuccessMessage }) {
                   type={field.type}
                   name={field.name}
                   placeholder={field.placeholder}
-                  value={state[field.name].value}
-                  error={state[field.name].error}
-                  options={field.options}
+                  value={state[field.name]?.value || ""}
+                  error={state[field.name]?.error || ""}
+                  options={field.options || []}
+                  multiSelect={field.multiSelect || false}
                   handleOnChange={handleOnChange}
                   handleOnBlur={handleOnBlur}
                 />

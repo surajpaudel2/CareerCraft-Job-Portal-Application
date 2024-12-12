@@ -29,6 +29,42 @@ export default function Input({
             </option>
           ))}
         </select>
+      ) : type === "checkbox" ? (
+        <div className="flex flex-wrap gap-2">
+          {options.map((option) => (
+            <label
+              key={option}
+              className="flex items-center space-x-2 text-gray-900 dark:text-white"
+            >
+              <input
+                type="checkbox"
+                name={name}
+                value={option}
+                checked={Array.isArray(value) && value.includes(option)}
+                onChange={(event) => {
+                  const selectedValue = event.target.value;
+                  if (event.target.checked) {
+                    handleOnChange({
+                      target: {
+                        name,
+                        value: [...(value || []), selectedValue],
+                      },
+                    });
+                  } else {
+                    handleOnChange({
+                      target: {
+                        name,
+                        value: value.filter((v) => v !== selectedValue),
+                      },
+                    });
+                  }
+                }}
+                className="form-checkbox text-teal-600 focus:ring-teal-500"
+              />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
       ) : (
         <input
           type={type}

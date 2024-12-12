@@ -12,7 +12,7 @@ export default function LandingPage() {
     maxSalary: null,
     postedAfter: null,
     page: 0,
-    size: 10,
+    size: 4,
   });
 
   const navigate = useNavigate();

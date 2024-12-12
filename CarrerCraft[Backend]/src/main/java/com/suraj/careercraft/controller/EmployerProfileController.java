@@ -178,6 +178,8 @@ public class EmployerProfileController {
     @GetMapping("/profile")
     public ResponseEntity<EmployerProfile> getEmployerProfile(@RequestParam String usernameOrEmail) {
         EmployerProfile employerProfile = employerProfileService.getEmployerProfileByUsernameOrEmail(usernameOrEmail);
+        System.out.println("Posted jobs list : -----------------------\n");
+        System.out.println(employerProfile.getPostedJobs());
         return new ResponseEntity<>(employerProfile, HttpStatus.OK);
     }
 

@@ -114,7 +114,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.15.2</version> <!-- Use the latest compatible version -->
+<!--            <version>2.15.2</version> &lt;!&ndash; Use the latest compatible version &ndash;&gt;-->
         </dependency>
 
 
@@ -122,6 +122,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/co.elastic.clients/elasticsearch-java -->
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>8.16.0</version>
         </dependency>
 
     </dependencies>

@@ -58,12 +58,14 @@ public class JobIndexingServiceImpl implements JobIndexingService {
                 .location(job.getLocation())
                 .locationKeyword(job.getLocation()) // Add exact match field for filtering
                 .requirements(job.getRequirements())
+                .requirementsKeyword(job.getRequirements())
                 .salary(job.getSalary() != null ? job.getSalary().doubleValue() : 0.0)
                 .status(job.getStatus() != null ? job.getStatus().name() : JobStatus.ACTIVE.name())
                 .postedAt(job.getPostedAt())
                 .companyName(employerProfile.getCompanyName())
                 .industry(employerProfile.getIndustry())
                 .logoUrl(employerProfile.getLogoUrl())
+                .jobTypes(job.getJobType())
                 .build();
     }
 }
