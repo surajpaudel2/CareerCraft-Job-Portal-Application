@@ -21,7 +21,8 @@ import AuthProvider from "./contexts/AuthContext";
 import { EmployerProvider } from "./contexts/EmployerContext";
 import LandingPage from "./components/LandingPage/LandingPage";
 import WhyUsSection from "./components/LandingPage/WhyUsSection";
-import JobListWithDetails from "./components/dummy/JobListWithDetails";
+import Jobs from "./components/Jobs/Jobs";
+import { JobProvider } from "./contexts/JobContext";
 
 const clientId =
   "516077764705-ueuep86aim4a2f20595f1p1jqc9pt689.apps.googleusercontent.com"; // Client Id for the google login.
@@ -62,10 +63,24 @@ function MainContent() {
       {shouldRenderTopNav && <TopNav />}
       <Routes>
         {/* Public routes */}
-        <Route path="/" element={<LandingPage />}>
+        <Route
+          path="/"
+          element={
+            <JobProvider>
+              <LandingPage />
+            </JobProvider>
+          }
+        >
           <Route index element={<WhyUsSection />} />
-          <Route path="/jobs" element={<JobListWithDetails />} />
         </Route>
+        <Route
+          path="/jobs"
+          element={
+            <JobProvider>
+              <Jobs />
+            </JobProvider>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/otp-verification" element={<OtpVerification />} />

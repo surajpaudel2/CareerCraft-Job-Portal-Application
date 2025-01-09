@@ -3,10 +3,9 @@ package com.suraj.careercraft.service;
 import com.suraj.careercraft.dto.request.JobRequestDto;
 import com.suraj.careercraft.dto.request.JobSearchRequestDto;
 import com.suraj.careercraft.model.Job;
-import com.suraj.careercraft.model.elasticsearch.JobDocument;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface JobService {
 
@@ -16,7 +15,7 @@ public interface JobService {
 
     void deleteJob(Long jobId);
 
-    List<JobDocument> searchJobs(JobSearchRequestDto searchRequestDto);
+    Map<String, Object> searchJobs(JobSearchRequestDto searchRequestDto);
 
     Job convertDto(JobRequestDto jobRequestDto);
 }

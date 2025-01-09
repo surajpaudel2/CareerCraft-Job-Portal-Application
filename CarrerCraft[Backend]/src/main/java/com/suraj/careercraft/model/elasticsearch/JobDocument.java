@@ -33,26 +33,14 @@ public class JobDocument {
     @Field(type = FieldType.Text, analyzer = "standard")
     private String title;
 
-    @JsonIgnore
-    @Field(type = FieldType.Keyword)
-    private String titleKeyword;
-
     @Field(type = FieldType.Text, analyzer = "standard")
     private String description;
 
     @Field(type = FieldType.Text, analyzer = "standard")
     private String location;
 
-    @JsonIgnore
-    @Field(type = FieldType.Keyword)
-    private String locationKeyword;
-
     @Field(type = FieldType.Text)
     private List<String> requirements;
-
-    @JsonIgnore
-    @Field(type = FieldType.Keyword)
-    private List<String> requirementsKeyword;
 
     @Field(type = FieldType.Double)
     private Double salary;

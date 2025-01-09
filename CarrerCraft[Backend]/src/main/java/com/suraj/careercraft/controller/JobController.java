@@ -19,6 +19,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/job")
@@ -50,7 +51,7 @@ public class JobController {
    */
     @PostMapping("/create")
     public ResponseEntity<?> createJob(@RequestBody JobRequestDto jobRequestDto) {
-        if(jobRequestDto.getId() != null) {
+        if (jobRequestDto.getId() != null) {
             throw new UnauthorizedAccessException("Unauthorized attempt to create the job");
         }
 
@@ -72,7 +73,7 @@ public class JobController {
 
     @PutMapping("/update")
     public ResponseEntity<?> updateJob(@RequestBody JobRequestDto jobRequestDto) {
-        if(jobRequestDto.getId() == null) {
+        if (jobRequestDto.getId() == null) {
             throw new NoJobFoundException("No Such Job found");
         }
 
@@ -102,7 +103,8 @@ public class JobController {
 
     @PostMapping("/search")
     public ResponseEntity<?> searchJob(@RequestBody JobSearchRequestDto searchRequestDto) {
-        List<JobDocument> list = jobService.searchJobs(searchRequestDto);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        System.out.println(searchRequestDto.getSize() + " " + searchRequestDto.getPage() + " ");
+        Map<String, Object> map = jobService.searchJobs(searchRequestDto);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }

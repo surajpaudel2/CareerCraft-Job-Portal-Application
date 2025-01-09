@@ -41,7 +41,7 @@ public enum JobType {
         // Match against enum constants
         for (JobType jobType : values()) {
             if (jobType.name().equalsIgnoreCase(value.trim()) || // Check constant (e.g., PART_TIME)
-                    jobType.displayName.equalsIgnoreCase(value.trim())) { // Check display name (e.g., part time)
+                    jobType.displayName.equalsIgnoreCase(value.trim())) { // Check display name (e.g., part-time)
                 return jobType;
             }
         }

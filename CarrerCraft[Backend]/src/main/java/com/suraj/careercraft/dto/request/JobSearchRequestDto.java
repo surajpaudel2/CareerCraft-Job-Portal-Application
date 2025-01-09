@@ -14,8 +14,7 @@ public class JobSearchRequestDto {
     private Double maxSalary;
     private LocalDateTime postedAfter;
 
-    // Pagination fields
-    private Integer page = 0; // Default page
-    private Integer size = 10; // Default page size
+    private Integer page = 0;
+    private Integer size = 10;
 }
 

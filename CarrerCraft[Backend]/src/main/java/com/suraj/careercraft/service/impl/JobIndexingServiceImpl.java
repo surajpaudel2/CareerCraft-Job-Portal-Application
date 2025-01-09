@@ -52,13 +52,10 @@ public class JobIndexingServiceImpl implements JobIndexingService {
         return JobDocument.builder()
                 .id(job.getId().toString())
                 .employerId(employerProfile.getId().toString())
-                .title(job.getTitle())
-                .titleKeyword(job.getTitle()) // Add exact match field for filtering or sorting
+                .title(job.getTitle())// Add exact match field for filtering or sorting
                 .description(job.getDescription())
-                .location(job.getLocation())
-                .locationKeyword(job.getLocation()) // Add exact match field for filtering
+                .location(job.getLocation()) // Add exact match field for filtering
                 .requirements(job.getRequirements())
-                .requirementsKeyword(job.getRequirements())
                 .salary(job.getSalary() != null ? job.getSalary().doubleValue() : 0.0)
                 .status(job.getStatus() != null ? job.getStatus().name() : JobStatus.ACTIVE.name())
                 .postedAt(job.getPostedAt())

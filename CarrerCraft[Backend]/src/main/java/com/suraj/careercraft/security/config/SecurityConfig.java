@@ -33,7 +33,6 @@ public class SecurityConfig {
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CorsConfigurationSource corsConfigurationSource;
-//    private final AuthorizationManager<RequestAuthorizationContext> employerRegisterAuthorizationManager;
     private final  CustomAuthorizationService customAuthorizationService;
 
     @Autowired
@@ -48,7 +47,6 @@ public class SecurityConfig {
         this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
         this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
         this.corsConfigurationSource = corsConfigurationSource;
-//        this.employerRegisterAuthorizationManager = employerRegisterAuthorizationManager;
         this.customAuthorizationService = customAuthorizationService;
     }
 

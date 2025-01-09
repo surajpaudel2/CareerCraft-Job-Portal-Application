@@ -1,10 +1,5 @@
 package com.suraj.careercraft.service.impl;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
-import co.elastic.clients.elasticsearch.core.SearchRequest;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suraj.careercraft.dto.request.JobRequestDto;
 import com.suraj.careercraft.dto.request.JobSearchRequestDto;
 import com.suraj.careercraft.events.publisher.JobEventPublisher;
@@ -14,7 +9,6 @@ import com.suraj.careercraft.exceptions.JobPersistenceException;
 import com.suraj.careercraft.model.EmployerProfile;
 import com.suraj.careercraft.model.Job;
 import com.suraj.careercraft.model.enums.JobStatus;
-import com.suraj.careercraft.model.elasticsearch.JobDocument;
 import com.suraj.careercraft.model.enums.JobType;
 import com.suraj.careercraft.repository.JobRepository;
 import com.suraj.careercraft.repository.JobSearchRepository;
@@ -26,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -95,7 +90,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDocument> searchJobs(JobSearchRequestDto request) {
+    public Map<String, Object> searchJobs(JobSearchRequestDto request) {
         return jobSearchRepository.search(request);
     }
 
